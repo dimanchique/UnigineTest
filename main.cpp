@@ -13,7 +13,7 @@ int main() {
         std::cout << "Enter field size: ";
         std::cin >> FieldSize;
         std::cout << std::endl;
-        ValueIsOkay = pow(FieldSize, 4) > NumOfEntities; // 4 is because we use range -FieldSize -> FieldSize instead of 0 -> FieldSize
+        ValueIsOkay = FieldSize*FieldSize > NumOfEntities;
         if (!ValueIsOkay)
             std::cout << "Can't fit " << NumOfEntities << " entities in field with size " << FieldSize << "x" << FieldSize << ". Try Again" << std::endl;
     }
@@ -26,7 +26,7 @@ int main() {
     std::cin >> ViewDistance;
     std::cout << std::endl;
 
-    Manager.CreateEntities(FieldSize, NumOfEntities, FOV, ViewDistance);
+    Manager.CreateEntities(FieldSize/2, NumOfEntities, FOV, ViewDistance);
     Manager.CalculateVisibleUnits();
 
     for (auto Pair : Manager.EntityByID)
