@@ -5,7 +5,7 @@
 #include "map"
 
 class EntityManager {
-    static uint32_t EntityID;
+    static uint32_t EntityCount;
 public:
     EntityManager() = default;
     void CreateEntities(int FieldSize, uint32_t NumOfEntities, float FOV, int ViewDistance);

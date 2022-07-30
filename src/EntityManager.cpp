@@ -1,6 +1,6 @@
 #include "EntityManager.h"
 
-uint32_t EntityManager::EntityID = 0;
+uint32_t EntityManager::EntityCount = 0;
 
 void EntityManager::CreateEntities(int FieldSize, uint32_t NumOfEntities, float FOV, int ViewDistance) {
     int size = FieldSize/2;
@@ -45,11 +45,11 @@ void EntityManager::GenerateNotOccupiedLocation(int Band, Vector2 &Position) {
 }
 
 void EntityManager::InitializeEntity(Vector2 position, Vector2 rotation, float fov, int view_distance) {
-    Entity entity(position, rotation, fov, view_distance, EntityID);
+    Entity entity(position, rotation, fov, view_distance, EntityCount);
     EntityByID[entity.ID] = entity;
     EntitiyIDByLocation[(int)entity.Position.X][(int)entity.Position.Y] = entity.ID;
     auto EntityCluster = GetClusterForPosition(entity.Position, entity.ViewDistance);
-    ClusterOfEntitiesIDs[(int)EntityCluster.X][(int)EntityCluster.Y].push_back(EntityID++);
+    ClusterOfEntitiesIDs[(int)EntityCluster.X][(int)EntityCluster.Y].push_back(EntityCount++);
 }
 
 void EntityManager::CalculateVisibleUnits() {
