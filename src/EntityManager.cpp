@@ -3,10 +3,11 @@
 uint32_t EntityManager::EntityID = 0;
 
 void EntityManager::CreateEntities(int FieldSize, uint32_t NumOfEntities, float FOV, int ViewDistance) {
-    CreateClusters(FieldSize, ViewDistance);
+    int size = FieldSize/2;
+    CreateClusters(size, ViewDistance);
     for (int i = 0; i < NumOfEntities; ++i) {
         Vector2 EntityPosition;
-        GenerateNotOccupiedLocation(FieldSize, EntityPosition);
+        GenerateNotOccupiedLocation(size, EntityPosition);
         Vector2 EntityRotation = Vector2::GetRandomRotatedVector();
         InitializeEntity(EntityPosition, EntityRotation, FOV, ViewDistance);
     }
