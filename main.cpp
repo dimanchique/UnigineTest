@@ -22,25 +22,23 @@ int main() {
     auto start = std::chrono::high_resolution_clock::now();
     Manager.CreateEntities(FieldSize, NumOfEntities, FOV, ViewDistance);
     auto end = std::chrono::high_resolution_clock::now();
-    double time_taken = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
-    time_taken *= 1e-9;
+    double time_taken = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count(); time_taken *= 1e-9;
     std::cout << "Time taken by creation is : " << std::fixed << time_taken << " sec " << std::endl;
 
     start = std::chrono::high_resolution_clock::now();
     Manager.CalculateVisibleUnits();
     end = std::chrono::high_resolution_clock::now();
-    time_taken = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
-    time_taken *= 1e-9;
+    time_taken = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count(); time_taken *= 1e-9;
     std::cout << "Time taken by calculation is : " << std::fixed << time_taken << " sec " << std::endl;
 
-//    for (auto Pair : Manager.EntityByID)
-//    {
-//        auto entity = Pair.second;
-//        printf("Entity %d see %d entities: ", entity.ID, entity.VisibleEntitiesIDs.size());
-//        std::cout << "{ ";
-//        for (auto ID : entity.VisibleEntitiesIDs)
-//            std::cout << ID << " ";
-//        std::cout << "}" << std::endl;
-//    }
+    for (auto Pair : Manager.EntityByID)
+    {
+        auto entity = Pair.second;
+        printf("Entity %d see %d entities: ", entity.ID, entity.VisibleEntitiesIDs.size());
+        std::cout << "{ ";
+        for (auto ID : entity.VisibleEntitiesIDs)
+            std::cout << ID << " ";
+        std::cout << "}" << std::endl;
+    }
     return 0;
 }
