@@ -61,7 +61,7 @@ void EntityManager::CalculateVisibleUnits() {
             for (auto TargetEntity : GetEntitiesByIDs(GetEntitiesIDsByCluster(Cluster)))
             {
                 if (RootEntity.ID != TargetEntity.ID)
-                    if (RootEntity.IsVisible(TargetEntity))
+                    if (RootEntity.CanSee(TargetEntity))
                         RootEntity.VisibleEntitiesIDs.push_back(TargetEntity.ID);
             }
         }

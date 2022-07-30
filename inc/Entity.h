@@ -21,7 +21,7 @@ public:
         ViewDirection.normalize();
     }
 
-    bool IsVisible(Entity other)
+    bool CanSee(Entity other)
     {
         float Distance = Vector2::distance(Position, other.Position);
         if (Distance > ViewDistance)
