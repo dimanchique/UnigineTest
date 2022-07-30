@@ -75,7 +75,7 @@ float Vector2::distance(const Vector2 &left, const Vector2 &right) {
 }
 
 void Vector2::rotate(float Degrees) {
-    float Radians = Degrees*0.01745329252f;
+    float Radians = DegToRad(Degrees);
     float x_1 = X;
     X = (X * cos(Radians)) - (Y * sin(Radians));
     Y = (x_1 * sin(Radians)) + (Y * cos(Radians));

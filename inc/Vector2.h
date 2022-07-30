@@ -1,6 +1,9 @@
 #pragma once
 #include <experimental/random>
 
+#define RadToDeg(x) (x) * 57.295779513f;
+#define DegToRad(x) (x) * 0.01745329252f;
+
 class Vector2 {
 public:
     Vector2(float X, float Y) : X(X), Y(Y) {};
