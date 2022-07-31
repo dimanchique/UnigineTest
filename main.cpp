@@ -5,6 +5,7 @@
 
 void SetInputParams(int &num, int &field_size, float &fov, int &view_distance);
 void LogDuration(std::chrono::high_resolution_clock::time_point t1, std::chrono::high_resolution_clock::time_point t2, const std::string& operation);
+void LogVisibleUnits(EntityManager Manager);
 
 int main() {
     EntityManager Manager;
@@ -23,14 +24,8 @@ int main() {
     stop_time = std::chrono::high_resolution_clock::now();
     LogDuration(start_time, stop_time, "calculation");
 
-    for (auto &Pair : Manager.EntityByID)
-    {
-        auto entity = Pair.second;
-        printf("Unit %d see %d units: { ", entity.ID, entity.VisibleEntitiesIDs.size());
-        for (auto ID : entity.VisibleEntitiesIDs)
-            std::cout << ID << " ";
-        printf("}\n");
-    }
+    LogVisibleUnits(Manager);
+
     return 0;
 }
 
@@ -52,4 +47,16 @@ void LogDuration(std::chrono::high_resolution_clock::time_point t1, std::chrono:
 {
     std::chrono::duration<double, std::milli> ms_double = (t2 - t1)/1000;
     printf("Time taken by %s is: %f s\n", operation.c_str(), ms_double.count());
+}
+
+void LogVisibleUnits(EntityManager Manager)
+{
+    for (auto &Pair : Manager.EntityByID)
+    {
+        auto entity = Pair.second;
+        printf("Unit %d see %d units: ", entity.ID, entity.VisibleEntitiesIDs.size());
+        printf("{ ");
+        for (auto ID : entity.VisibleEntitiesIDs) printf("%d ", ID);
+        printf("}\n");
+    }
 }
