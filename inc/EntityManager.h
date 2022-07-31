@@ -21,7 +21,7 @@ private:
     void GenerateNotOccupiedLocation(int Band, Vector2 &Position);
     bool FieldPointIsOccupied(Vector2 Position);
     static Vector2 GetClusterForPosition(Vector2 Position, int ClusterSize);
-    std::vector<Vector2> RayTraceSector(Entity entity);
+    std::vector<Vector2> RayTraceSector(Entity &unit);
 
     Entity GetEntityByID(uint32_t ID) { return EntityByID[ID]; }
     std::vector<uint32_t> GetEntitiesIDsByCluster(Vector2 Cluster) {

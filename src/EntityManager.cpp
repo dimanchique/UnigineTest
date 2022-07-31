@@ -68,25 +68,25 @@ void EntityManager::CalculateVisibleUnits() {
     }
 }
 
-std::vector<Vector2> EntityManager::RayTraceSector(Entity entity) {
-    std::vector<Vector2> Sectors;
-    float AngleStep = entity.FOV/8;
+std::vector<Vector2> EntityManager::RayTraceSector(Entity &unit) {
+    std::vector<Vector2> ClustersAroundUnit;
+    float AngleStep = unit.FOV / 8;
     for (int i = 0; i < 8; ++i) {
-        Vector2 Ray = entity.ViewDirection;
-        Ray.rotate(-entity.FOV/2);
-        Ray*=entity.ViewDistance;
-        Ray.rotate(i*AngleStep);
-        Ray+=entity.Position;
-        auto Cluster = GetClusterForPosition(Ray, entity.ViewDistance);
-        bool ClusterExist = false;
-        for (auto Vec : Sectors)
+        Vector2 TraceVector = unit.ViewDirection;
+        TraceVector*=unit.ViewDistance;
+        TraceVector.rotate(i * AngleStep);
+        TraceVector+=unit.Position;
+        auto TracedCluster = GetClusterForPosition(TraceVector, unit.ViewDistance);
+        bool ClusterAlreadyTraced = false;
+        for (auto Cluster : ClustersAroundUnit)
         {
-            if (Vec==Cluster)
-                ClusterExist = true;
+            if (Cluster == TracedCluster) {
+                ClusterAlreadyTraced = true;
+                break;
+            }
         }
-        if (ClusterExist)
-            continue;
-        Sectors.push_back(Cluster);
+        if (!ClusterAlreadyTraced)
+            ClustersAroundUnit.push_back(TracedCluster);
     }
-    return Sectors;
+    return ClustersAroundUnit;
 }
