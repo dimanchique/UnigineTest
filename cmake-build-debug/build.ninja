@@ -39,7 +39,7 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = F$:/SoftwareProjects/UnigineTest/cmake-build-debug/
+cmake_ninja_workdir = F$:/SoftwareProjects/C-Cpp/UnigineTest/cmake-build-debug/
 # =============================================================================
 # Object build statements for EXECUTABLE target UnigineTest
 
@@ -49,28 +49,28 @@ cmake_ninja_workdir = F$:/SoftwareProjects/UnigineTest/cmake-build-debug/
 
 build cmake_object_order_depends_target_UnigineTest: phony || CMakeFiles/UnigineTest.dir
 
-build CMakeFiles/UnigineTest.dir/main.cpp.obj: CXX_COMPILER__UnigineTest_Debug F$:/SoftwareProjects/UnigineTest/main.cpp || cmake_object_order_depends_target_UnigineTest
+build CMakeFiles/UnigineTest.dir/main.cpp.obj: CXX_COMPILER__UnigineTest_Debug F$:/SoftwareProjects/C-Cpp/UnigineTest/main.cpp || cmake_object_order_depends_target_UnigineTest
   DEP_FILE = CMakeFiles\UnigineTest.dir\main.cpp.obj.d
   FLAGS = -g -std=gnu++14
-  INCLUDES = -IF:/SoftwareProjects/UnigineTest/inc
+  INCLUDES = -IF:/SoftwareProjects/C-Cpp/UnigineTest/inc
   OBJECT_DIR = CMakeFiles\UnigineTest.dir
   OBJECT_FILE_DIR = CMakeFiles\UnigineTest.dir
   TARGET_COMPILE_PDB = CMakeFiles\UnigineTest.dir\
   TARGET_PDB = UnigineTest.pdb
 
-build CMakeFiles/UnigineTest.dir/src/UnitManager.cpp.obj: CXX_COMPILER__UnigineTest_Debug F$:/SoftwareProjects/UnigineTest/src/UnitManager.cpp || cmake_object_order_depends_target_UnigineTest
+build CMakeFiles/UnigineTest.dir/src/UnitManager.cpp.obj: CXX_COMPILER__UnigineTest_Debug F$:/SoftwareProjects/C-Cpp/UnigineTest/src/UnitManager.cpp || cmake_object_order_depends_target_UnigineTest
   DEP_FILE = CMakeFiles\UnigineTest.dir\src\UnitManager.cpp.obj.d
   FLAGS = -g -std=gnu++14
-  INCLUDES = -IF:/SoftwareProjects/UnigineTest/inc
+  INCLUDES = -IF:/SoftwareProjects/C-Cpp/UnigineTest/inc
   OBJECT_DIR = CMakeFiles\UnigineTest.dir
   OBJECT_FILE_DIR = CMakeFiles\UnigineTest.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\UnigineTest.dir\
   TARGET_PDB = UnigineTest.pdb
 
-build CMakeFiles/UnigineTest.dir/src/Vector2.cpp.obj: CXX_COMPILER__UnigineTest_Debug F$:/SoftwareProjects/UnigineTest/src/Vector2.cpp || cmake_object_order_depends_target_UnigineTest
+build CMakeFiles/UnigineTest.dir/src/Vector2.cpp.obj: CXX_COMPILER__UnigineTest_Debug F$:/SoftwareProjects/C-Cpp/UnigineTest/src/Vector2.cpp || cmake_object_order_depends_target_UnigineTest
   DEP_FILE = CMakeFiles\UnigineTest.dir\src\Vector2.cpp.obj.d
   FLAGS = -g -std=gnu++14
-  INCLUDES = -IF:/SoftwareProjects/UnigineTest/inc
+  INCLUDES = -IF:/SoftwareProjects/C-Cpp/UnigineTest/inc
   OBJECT_DIR = CMakeFiles\UnigineTest.dir
   OBJECT_FILE_DIR = CMakeFiles\UnigineTest.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\UnigineTest.dir\
@@ -100,7 +100,7 @@ build UnigineTest.exe: CXX_EXECUTABLE_LINKER__UnigineTest_Debug CMakeFiles/Unigi
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D F:\SoftwareProjects\UnigineTest\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  COMMAND = cmd.exe /C "cd /D F:\SoftwareProjects\C-Cpp\UnigineTest\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -111,7 +111,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D F:\SoftwareProjects\UnigineTest\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -SF:\SoftwareProjects\UnigineTest -BF:\SoftwareProjects\UnigineTest\cmake-build-debug"
+  COMMAND = cmd.exe /C "cd /D F:\SoftwareProjects\C-Cpp\UnigineTest\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -SF:\SoftwareProjects\C-Cpp\UnigineTest -BF:\SoftwareProjects\C-Cpp\UnigineTest\cmake-build-debug"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -129,7 +129,7 @@ build UnigineTest: phony UnigineTest.exe
 # =============================================================================
 
 #############################################
-# Folder: F:/SoftwareProjects/UnigineTest/cmake-build-debug
+# Folder: F:/SoftwareProjects/C-Cpp/UnigineTest/cmake-build-debug
 
 build all: phony UnigineTest.exe
 

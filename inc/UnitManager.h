@@ -16,20 +16,20 @@ private:
     std::map<int, std::map<int, std::vector<uint32_t>>> UnitsIDsByCluster;
     std::map<int, std::map<int,uint32_t>> UnitsIDsByLocation;
 
-    void InitializeUnits(Vector2 position, Vector2 rotation, float fov, int view_distance);
+    void InitializeUnits(Vector2 &position, Vector2 &rotation, float &fov, int &view_distance);
     void CreateClusters(uint32_t StartPosition, int ClusterSize);
     void GenerateNotOccupiedLocation(int Band, Vector2 &Position);
-    bool FieldPointIsOccupied(Vector2 Position);
-    static Vector2 GetClusterForPosition(Vector2 Position, int ClusterSize);
+    bool FieldPointIsOccupied(Vector2 &Position);
+    static Vector2 GetClusterForPosition(Vector2 &Position, int &ClusterSize);
     std::vector<Vector2> RayTraceSector(Unit &unit);
 
     Unit GetUnitByID(uint32_t ID) { return UnitsByID[ID]; }
-    std::vector<uint32_t> GetUnitsInCluster(Vector2 Cluster) {
+    std::vector<uint32_t>& GetUnitsInCluster(Vector2 &Cluster) {
         return UnitsIDsByCluster[(int)Cluster.X][(int)Cluster.Y];
     }
-    std::vector<Unit> GetUnitsByIDs(std::vector<uint32_t> IDs) {
+    std::vector<Unit> GetUnitsByIDs(std::vector<uint32_t> &IDs) {
         std::vector<Unit> units;
-        for (auto ID : IDs)
+        for (auto &ID : IDs)
         {
             units.push_back(GetUnitByID(ID));
         }

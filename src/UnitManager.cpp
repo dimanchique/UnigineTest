@@ -13,13 +13,13 @@ void UnitManager::CreateUnits(int FieldSize, uint32_t NumOfUnits, float FOV, int
     }
 }
 
-bool UnitManager::FieldPointIsOccupied(Vector2 Position) {
+bool UnitManager::FieldPointIsOccupied(Vector2 &Position) {
     return UnitsIDsByLocation.find((int)Position.X) != UnitsIDsByLocation.end()
            &&
            UnitsIDsByLocation.at((int)Position.X).find((int)Position.Y) != UnitsIDsByLocation.at((int)Position.X).end();
 }
 
-Vector2 UnitManager::GetClusterForPosition(Vector2 Position, int ClusterSize) {
+Vector2 UnitManager::GetClusterForPosition(Vector2 &Position, int &ClusterSize) {
     int X_Cluster = Position.X > 0 ?
                     ClusterSize * ((int) Position.X / ClusterSize) :
                     ClusterSize * (((int) Position.X / ClusterSize) - 1);
@@ -44,7 +44,7 @@ void UnitManager::GenerateNotOccupiedLocation(int Band, Vector2 &Position) {
     } while (FieldPointIsOccupied(Position));
 }
 
-void UnitManager::InitializeUnits(Vector2 position, Vector2 rotation, float fov, int view_distance) {
+void UnitManager::InitializeUnits(Vector2 &position, Vector2 &rotation, float &fov, int &view_distance) {
     Unit entity(position, rotation, fov, view_distance, UnitsCount);
     UnitsByID[entity.ID] = entity;
     UnitsIDsByLocation[(int)entity.Position.X][(int)entity.Position.Y] = entity.ID;
@@ -56,9 +56,9 @@ void UnitManager::CalculateVisibleUnits() {
     for (auto &Pair : UnitsByID) {
         auto &RootEntity = Pair.second;
         auto VisibleClusters = RayTraceSector(RootEntity);
-        for (auto Cluster : VisibleClusters)
+        for (auto &Cluster : VisibleClusters)
         {
-            for (auto TargetEntity : GetUnitsByIDs(GetUnitsInCluster(Cluster)))
+            for (auto &TargetEntity : GetUnitsByIDs(GetUnitsInCluster(Cluster)))
             {
                 if (RootEntity.ID != TargetEntity.ID)
                     if (RootEntity.CanSee(TargetEntity))
@@ -71,14 +71,15 @@ void UnitManager::CalculateVisibleUnits() {
 std::vector<Vector2> UnitManager::RayTraceSector(Unit &unit) {
     std::vector<Vector2> ClustersAroundUnit;
     float AngleStep = unit.FOV / 8;
+    Vector2 TraceVector = unit.ViewDirection;
+    TraceVector.rotate(-(AngleStep*4));
     for (int i = 0; i < 8; ++i) {
-        Vector2 TraceVector = unit.ViewDirection;
         TraceVector*=unit.ViewDistance;
         TraceVector.rotate(i * AngleStep);
         TraceVector+=unit.Position;
         auto TracedCluster = GetClusterForPosition(TraceVector, unit.ViewDistance);
         bool ClusterAlreadyTraced = false;
-        for (auto Cluster : ClustersAroundUnit)
+        for (auto &Cluster : ClustersAroundUnit)
         {
             if (Cluster == TracedCluster) {
                 ClusterAlreadyTraced = true;

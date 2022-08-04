@@ -24,7 +24,7 @@ int main() {
     stop_time = std::chrono::high_resolution_clock::now();
     LogDuration(start_time, stop_time, "calculation");
 
-    LogVisibleUnits(Manager);
+    //LogVisibleUnits(Manager);
 
     return 0;
 }
