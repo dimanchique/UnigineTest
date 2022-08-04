@@ -67,7 +67,8 @@ float Vector2::absolute() const {
     float x = 1.0f;
     for (;;) {
         float nx = (x + quad / x) / 2;
-        if (std::abs (x - nx) < 1e-5)  break; //точность
+        if (std::abs (x - nx) < 1e-5)
+            break;
         x = nx;
     }
     return x;

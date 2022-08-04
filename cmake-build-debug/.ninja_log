@@ -47,3 +47,13 @@
 1190	1453	6813010845736482	UnigineTest.exe	bdea553351aafc13
 3	465	6813017736308493	CMakeFiles/UnigineTest.dir/src/Vector2.cpp.obj	58e68ef69738efcf
 466	742	6813017739039140	UnigineTest.exe	bdea553351aafc13
+7	488	6813019272645338	CMakeFiles/UnigineTest.dir/src/Vector2.cpp.obj	58e68ef69738efcf
+3	1335	6813019281088181	CMakeFiles/UnigineTest.dir/src/UnitManager.cpp.obj	945800901c44894
+1335	1596	6813019283689545	UnigineTest.exe	bdea553351aafc13
+4	1174	6813019473521924	CMakeFiles/UnigineTest.dir/src/UnitManager.cpp.obj	945800901c44894
+1175	1439	6813019476152804	UnigineTest.exe	bdea553351aafc13
+0	9	0	clean	b72c21c3e92959a
+12	477	6813034555969090	CMakeFiles/UnigineTest.dir/src/Vector2.cpp.obj	58e68ef69738efcf
+5	931	6813034560505540	CMakeFiles/UnigineTest.dir/main.cpp.obj	360e1d9b04fbab66
+9	1273	6813034563916919	CMakeFiles/UnigineTest.dir/src/UnitManager.cpp.obj	945800901c44894
+1274	1562	6813034566785122	UnigineTest.exe	bdea553351aafc13
