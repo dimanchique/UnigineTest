@@ -4,11 +4,10 @@ uint32_t UnitManager::UnitsCount = 0;
 
 void UnitManager::CreateUnits(int FieldSize, uint32_t NumOfUnits, float FOV, int ViewDistance) {
     int size = FieldSize/2;
-    CreateClusters(size, ViewDistance);
     for (int i = 0; i < NumOfUnits; ++i) {
         Vector2 UnitPosition;
-        GenerateNotOccupiedLocation(size, UnitPosition);
         Vector2 UnitRotation = Vector2::GetRandomRotatedVector();
+        GenerateNotOccupiedLocation(size, UnitPosition);
         InitializeUnits(UnitPosition, UnitRotation, FOV, ViewDistance);
     }
 }
@@ -29,14 +28,6 @@ void UnitManager::GetClusterForPosition(Vector2 &Cluster, Vector2 &Position, int
     Cluster = Vector2(X_Cluster, Y_Cluster);
 }
 
-void UnitManager::CreateClusters(uint32_t StartPosition, int ClusterSize) {
-    for (int i = -StartPosition; i < (int) StartPosition; i += ClusterSize) {
-        for (int j = -StartPosition; j < (int) StartPosition; j += ClusterSize) {
-            UnitsIDsByCluster[i][j];
-        }
-    }
-}
-
 void UnitManager::GenerateNotOccupiedLocation(int Band, Vector2 &Position) {
     do {
         Position = Vector2(std::experimental::randint(-Band, Band - 1),
@@ -54,12 +45,15 @@ void UnitManager::InitializeUnits(Vector2 &position, Vector2 &rotation, float &f
 }
 
 void UnitManager::CalculateVisibleUnits() {
+    std::vector<Unit> Units;
+    std::vector<Vector2> VisibleClusters;
     for (auto &Pair : UnitsByID) {
         auto &RootUnit = Pair.second;
-        auto VisibleClusters = RayTraceSector(RootUnit);
+        RayTraceSector(RootUnit, VisibleClusters);
         for (auto &Cluster : VisibleClusters)
         {
-            for (auto &TargetUnit : GetUnitsByIDs(GetUnitsInCluster(Cluster)))
+            GetUnitsByIDs(GetUnitsInCluster(Cluster), Units);
+            for (auto &TargetUnit : Units)
             {
                 if (RootUnit.ID != TargetUnit.ID)
                     if (RootUnit.CanSee(TargetUnit))
@@ -69,8 +63,8 @@ void UnitManager::CalculateVisibleUnits() {
     }
 }
 
-std::vector<Vector2> UnitManager::RayTraceSector(Unit &unit) {
-    std::vector<Vector2> ClustersAroundUnit;
+void UnitManager::RayTraceSector(Unit &unit, std::vector<Vector2> &ClustersAroundUnit) {
+    ClustersAroundUnit.clear();
     float AngleStep = unit.FOV / 8;
     Vector2 TraceVector = unit.ViewDirection;
     TraceVector.rotate(-(AngleStep*4));
@@ -91,5 +85,4 @@ std::vector<Vector2> UnitManager::RayTraceSector(Unit &unit) {
         if (!ClusterAlreadyTraced)
             ClustersAroundUnit.push_back(TracedCluster);
     }
-    return ClustersAroundUnit;
 }

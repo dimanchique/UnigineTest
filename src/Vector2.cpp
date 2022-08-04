@@ -84,8 +84,10 @@ float Vector2::distance(const Vector2 &left, const Vector2 &right) {
 void Vector2::rotate(float Degrees) {
     float Radians = DegToRad(Degrees);
     float x_1 = X;
-    X = (X * cos(Radians)) - (Y * sin(Radians));
-    Y = (x_1 * sin(Radians)) + (Y * cos(Radians));
+    float cos_rad = cos(Radians);
+    float sin_rad = sin(Radians);
+    X = ((X * cos_rad) - (Y * sin_rad));
+    Y = (x_1 * sin_rad) + (Y * cos_rad);
 }
 
 Vector2 Vector2::GetRandomRotatedVector() {

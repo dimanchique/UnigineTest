@@ -28,7 +28,7 @@ public:
             return false;
         Vector2 TargetDirection = other.Position - Position;
         TargetDirection.normalize();
-        float Angle = RadToDeg(acos(Vector2::dot(ViewDirection, TargetDirection)));
+        float Angle = RadToDeg(std::acos(Vector2::dot(ViewDirection, TargetDirection)));
         if (Angle > FOV/2)
             return false;
         return true;
