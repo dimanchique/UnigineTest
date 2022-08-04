@@ -12,7 +12,7 @@ public:
         ViewDistance = 0;
         ID = 0;
     }
-    Unit(Vector2 position, Vector2 rotation, float fov, int view_distance, uint32_t id){
+    Unit(Vector2 &position, Vector2 &rotation, float &fov, int &view_distance, uint32_t &id){
         Position = position;
         ViewDirection = rotation;
         FOV = fov;
@@ -21,7 +21,7 @@ public:
         ViewDirection.normalize();
     }
 
-    bool CanSee(Unit other)
+    bool CanSee(Unit &other)
     {
         float Distance = Vector2::distance(Position, other.Position);
         if (Distance > ViewDistance)

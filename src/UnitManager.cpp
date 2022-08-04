@@ -6,10 +6,10 @@ void UnitManager::CreateUnits(int FieldSize, uint32_t NumOfUnits, float FOV, int
     int size = FieldSize/2;
     CreateClusters(size, ViewDistance);
     for (int i = 0; i < NumOfUnits; ++i) {
-        Vector2 EntityPosition;
-        GenerateNotOccupiedLocation(size, EntityPosition);
-        Vector2 EntityRotation = Vector2::GetRandomRotatedVector();
-        InitializeUnits(EntityPosition, EntityRotation, FOV, ViewDistance);
+        Vector2 UnitPosition;
+        GenerateNotOccupiedLocation(size, UnitPosition);
+        Vector2 UnitRotation = Vector2::GetRandomRotatedVector();
+        InitializeUnits(UnitPosition, UnitRotation, FOV, ViewDistance);
     }
 }
 
@@ -19,14 +19,14 @@ bool UnitManager::FieldPointIsOccupied(Vector2 &Position) {
            UnitsIDsByLocation.at((int)Position.X).find((int)Position.Y) != UnitsIDsByLocation.at((int)Position.X).end();
 }
 
-Vector2 UnitManager::GetClusterForPosition(Vector2 &Position, int &ClusterSize) {
+void UnitManager::GetClusterForPosition(Vector2 &Cluster, Vector2 &Position, int &ClusterSize) {
     int X_Cluster = Position.X > 0 ?
                     ClusterSize * ((int) Position.X / ClusterSize) :
                     ClusterSize * (((int) Position.X / ClusterSize) - 1);
     int Y_Cluster = Position.Y > 0 ?
                     ClusterSize * ((int) Position.Y / ClusterSize) :
                     ClusterSize * (((int) Position.Y / ClusterSize) - 1);
-    return Vector2(X_Cluster, Y_Cluster);
+    Cluster = Vector2(X_Cluster, Y_Cluster);
 }
 
 void UnitManager::CreateClusters(uint32_t StartPosition, int ClusterSize) {
@@ -45,24 +45,25 @@ void UnitManager::GenerateNotOccupiedLocation(int Band, Vector2 &Position) {
 }
 
 void UnitManager::InitializeUnits(Vector2 &position, Vector2 &rotation, float &fov, int &view_distance) {
-    Unit entity(position, rotation, fov, view_distance, UnitsCount);
-    UnitsByID[entity.ID] = entity;
-    UnitsIDsByLocation[(int)entity.Position.X][(int)entity.Position.Y] = entity.ID;
-    auto EntityCluster = GetClusterForPosition(entity.Position, entity.ViewDistance);
-    UnitsIDsByCluster[(int)EntityCluster.X][(int)EntityCluster.Y].push_back(UnitsCount++);
+    Unit unit(position, rotation, fov, view_distance, UnitsCount);
+    UnitsByID[unit.ID] = unit;
+    UnitsIDsByLocation[(int)unit.Position.X][(int)unit.Position.Y] = unit.ID;
+    Vector2 UnitCluster;
+    GetClusterForPosition(UnitCluster, unit.Position, unit.ViewDistance);
+    UnitsIDsByCluster[(int)UnitCluster.X][(int)UnitCluster.Y].push_back(UnitsCount++);
 }
 
 void UnitManager::CalculateVisibleUnits() {
     for (auto &Pair : UnitsByID) {
-        auto &RootEntity = Pair.second;
-        auto VisibleClusters = RayTraceSector(RootEntity);
+        auto &RootUnit = Pair.second;
+        auto VisibleClusters = RayTraceSector(RootUnit);
         for (auto &Cluster : VisibleClusters)
         {
-            for (auto &TargetEntity : GetUnitsByIDs(GetUnitsInCluster(Cluster)))
+            for (auto &TargetUnit : GetUnitsByIDs(GetUnitsInCluster(Cluster)))
             {
-                if (RootEntity.ID != TargetEntity.ID)
-                    if (RootEntity.CanSee(TargetEntity))
-                        RootEntity.VisibleUnitsIDs.push_back(TargetEntity.ID);
+                if (RootUnit.ID != TargetUnit.ID)
+                    if (RootUnit.CanSee(TargetUnit))
+                        RootUnit.VisibleUnitsIDs.push_back(TargetUnit.ID);
             }
         }
     }
@@ -73,11 +74,12 @@ std::vector<Vector2> UnitManager::RayTraceSector(Unit &unit) {
     float AngleStep = unit.FOV / 8;
     Vector2 TraceVector = unit.ViewDirection;
     TraceVector.rotate(-(AngleStep*4));
+    Vector2 TracedCluster;
     for (int i = 0; i < 8; ++i) {
         TraceVector*=unit.ViewDistance;
         TraceVector.rotate(i * AngleStep);
         TraceVector+=unit.Position;
-        auto TracedCluster = GetClusterForPosition(TraceVector, unit.ViewDistance);
+        GetClusterForPosition(TracedCluster, TraceVector, unit.ViewDistance);
         bool ClusterAlreadyTraced = false;
         for (auto &Cluster : ClustersAroundUnit)
         {

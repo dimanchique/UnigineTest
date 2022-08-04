@@ -63,7 +63,14 @@ void Vector2::normalize() {
 }
 
 float Vector2::absolute() const {
-    return sqrt(pow(X, 2) + pow(Y, 2));
+    auto quad = X*X + Y*Y;
+    float x = 1.0f;
+    for (;;) {
+        float nx = (x + quad / x) / 2;
+        if (std::abs (x - nx) < 1e-5)  break; //точность
+        x = nx;
+    }
+    return x;
 }
 
 float Vector2::dot(const Vector2 &left, const Vector2 &right) {

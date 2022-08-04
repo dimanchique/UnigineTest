@@ -20,7 +20,7 @@ private:
     void CreateClusters(uint32_t StartPosition, int ClusterSize);
     void GenerateNotOccupiedLocation(int Band, Vector2 &Position);
     bool FieldPointIsOccupied(Vector2 &Position);
-    static Vector2 GetClusterForPosition(Vector2 &Position, int &ClusterSize);
+    static void GetClusterForPosition(Vector2 &Cluster, Vector2 &Position, int &ClusterSize);
     std::vector<Vector2> RayTraceSector(Unit &unit);
 
     Unit GetUnitByID(uint32_t ID) { return UnitsByID[ID]; }
