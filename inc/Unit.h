@@ -26,12 +26,10 @@ public:
         float Distance = Vector2::distance(Position, other.Position);
         if (Distance > ViewDistance)
             return false;
-        Vector2 TargetDirection = other.Position - Position;
-        TargetDirection.normalize();
-        float Angle = RadToDeg(std::acos(Vector2::dot(ViewDirection, TargetDirection)));
-        if (Angle > FOV/2)
-            return false;
-        return true;
+        Vector2 VectorToTarget = other.Position - Position;
+        VectorToTarget.normalize();
+        float Angle = RadToDeg(std::acos(Vector2::dot(ViewDirection, VectorToTarget)));
+        return Angle <= FOV/2;
     }
 
     Vector2 Position;

@@ -30,5 +30,6 @@ public:
     static float dot(const Vector2 &left, const Vector2 &right);
     static float distance(const Vector2 &left, const Vector2 &right);
 
-    static Vector2 GetRandomRotatedVector();
+    static void GetRandomRotatedVector(Vector2 &Vector);
+    static void GetRandomVector(int& Band, Vector2& RandomVector);
 };

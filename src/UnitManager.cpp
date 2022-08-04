@@ -4,9 +4,10 @@ uint32_t UnitManager::UnitsCount = 0;
 
 void UnitManager::CreateUnits(int FieldSize, uint32_t NumOfUnits, float FOV, int ViewDistance) {
     int size = FieldSize/2;
+    Vector2 UnitPosition;
+    Vector2 UnitRotation;
     for (int i = 0; i < NumOfUnits; ++i) {
-        Vector2 UnitPosition;
-        Vector2 UnitRotation = Vector2::GetRandomRotatedVector();
+        Vector2::GetRandomRotatedVector(UnitRotation);
         GenerateNotOccupiedLocation(size, UnitPosition);
         InitializeUnits(UnitPosition, UnitRotation, FOV, ViewDistance);
     }
@@ -28,11 +29,8 @@ void UnitManager::GetClusterForPosition(Vector2 &Cluster, Vector2 &Position, int
     Cluster = Vector2(X_Cluster, Y_Cluster);
 }
 
-void UnitManager::GenerateNotOccupiedLocation(int Band, Vector2 &Position) {
-    do {
-        Position = Vector2(std::experimental::randint(-Band, Band - 1),
-                           std::experimental::randint(-Band, Band - 1));
-    } while (FieldPointIsOccupied(Position));
+void UnitManager::GenerateNotOccupiedLocation(int &Band, Vector2 &Position) {
+    do { Vector2::GetRandomVector(Band, Position); } while (FieldPointIsOccupied(Position));
 }
 
 void UnitManager::InitializeUnits(Vector2 &position, Vector2 &rotation, float &fov, int &view_distance) {
@@ -41,29 +39,28 @@ void UnitManager::InitializeUnits(Vector2 &position, Vector2 &rotation, float &f
     UnitsIDsByLocation[(int)unit.Position.X][(int)unit.Position.Y] = unit.ID;
     Vector2 UnitCluster;
     GetClusterForPosition(UnitCluster, unit.Position, unit.ViewDistance);
-    UnitsIDsByCluster[(int)UnitCluster.X][(int)UnitCluster.Y].push_back(UnitsCount++);
+    UnitsIDsByCluster[(int)UnitCluster.X][(int)UnitCluster.Y].emplace_back(UnitsCount++);
 }
 
 void UnitManager::CalculateVisibleUnits() {
-    std::vector<Unit> Units;
     std::vector<Vector2> VisibleClusters;
-    for (auto &Pair : UnitsByID) {
-        auto &RootUnit = Pair.second;
-        RayTraceSector(RootUnit, VisibleClusters);
-        for (auto &Cluster : VisibleClusters)
-        {
-            GetUnitsByIDs(GetUnitsInCluster(Cluster), Units);
-            for (auto &TargetUnit : Units)
-            {
+    std::vector<Unit> Units;
+    std::vector<uint32_t> IDs;
+    for (auto &[UnitID, RootUnit]: UnitsByID) {
+        RayTraceNearClusters(RootUnit, VisibleClusters);
+        for (auto &Cluster: VisibleClusters) {
+            GetUnitsIDsInCluster(IDs, Cluster);
+            GetUnitsByIDs(Units, IDs);
+            for (auto &TargetUnit: Units) {
                 if (RootUnit.ID != TargetUnit.ID)
                     if (RootUnit.CanSee(TargetUnit))
-                        RootUnit.VisibleUnitsIDs.push_back(TargetUnit.ID);
+                        RootUnit.VisibleUnitsIDs.emplace_back(TargetUnit.ID);
             }
         }
     }
 }
 
-void UnitManager::RayTraceSector(Unit &unit, std::vector<Vector2> &ClustersAroundUnit) {
+void UnitManager::RayTraceNearClusters(Unit &unit, std::vector<Vector2> &ClustersAroundUnit) {
     ClustersAroundUnit.clear();
     float AngleStep = unit.FOV / 8;
     Vector2 TraceVector = unit.ViewDirection;
@@ -83,6 +80,6 @@ void UnitManager::RayTraceSector(Unit &unit, std::vector<Vector2> &ClustersAroun
             }
         }
         if (!ClusterAlreadyTraced)
-            ClustersAroundUnit.push_back(TracedCluster);
+            ClustersAroundUnit.emplace_back(TracedCluster);
     }
 }

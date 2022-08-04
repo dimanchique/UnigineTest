@@ -91,8 +91,13 @@ void Vector2::rotate(float Degrees) {
     Y = (x_1 * sin_rad) + (Y * cos_rad);
 }
 
-Vector2 Vector2::GetRandomRotatedVector() {
-    return {std::experimental::randint(0, 360)};
+void Vector2::GetRandomRotatedVector(Vector2 &RotatingVector) {
+    RotatingVector = {std::experimental::randint(0, 360)};
+}
+
+void Vector2::GetRandomVector(int& Band, Vector2& RandomVector){
+    RandomVector = Vector2(std::experimental::randint(-Band, Band - 1),
+                           std::experimental::randint(-Band, Band - 1));
 }
 
 Vector2 Vector2::operator*(const float Value) {

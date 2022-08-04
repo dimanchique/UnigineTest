@@ -51,7 +51,7 @@ build cmake_object_order_depends_target_UnigineTest: phony || CMakeFiles/Unigine
 
 build CMakeFiles/UnigineTest.dir/main.cpp.obj: CXX_COMPILER__UnigineTest_Debug F$:/SoftwareProjects/C-Cpp/UnigineTest/main.cpp || cmake_object_order_depends_target_UnigineTest
   DEP_FILE = CMakeFiles\UnigineTest.dir\main.cpp.obj.d
-  FLAGS = -g -std=gnu++14
+  FLAGS = -g
   INCLUDES = -IF:/SoftwareProjects/C-Cpp/UnigineTest/inc
   OBJECT_DIR = CMakeFiles\UnigineTest.dir
   OBJECT_FILE_DIR = CMakeFiles\UnigineTest.dir
@@ -60,7 +60,7 @@ build CMakeFiles/UnigineTest.dir/main.cpp.obj: CXX_COMPILER__UnigineTest_Debug F
 
 build CMakeFiles/UnigineTest.dir/src/UnitManager.cpp.obj: CXX_COMPILER__UnigineTest_Debug F$:/SoftwareProjects/C-Cpp/UnigineTest/src/UnitManager.cpp || cmake_object_order_depends_target_UnigineTest
   DEP_FILE = CMakeFiles\UnigineTest.dir\src\UnitManager.cpp.obj.d
-  FLAGS = -g -std=gnu++14
+  FLAGS = -g
   INCLUDES = -IF:/SoftwareProjects/C-Cpp/UnigineTest/inc
   OBJECT_DIR = CMakeFiles\UnigineTest.dir
   OBJECT_FILE_DIR = CMakeFiles\UnigineTest.dir\src
@@ -69,7 +69,7 @@ build CMakeFiles/UnigineTest.dir/src/UnitManager.cpp.obj: CXX_COMPILER__UnigineT
 
 build CMakeFiles/UnigineTest.dir/src/Vector2.cpp.obj: CXX_COMPILER__UnigineTest_Debug F$:/SoftwareProjects/C-Cpp/UnigineTest/src/Vector2.cpp || cmake_object_order_depends_target_UnigineTest
   DEP_FILE = CMakeFiles\UnigineTest.dir\src\Vector2.cpp.obj.d
-  FLAGS = -g -std=gnu++14
+  FLAGS = -g
   INCLUDES = -IF:/SoftwareProjects/C-Cpp/UnigineTest/inc
   OBJECT_DIR = CMakeFiles\UnigineTest.dir
   OBJECT_FILE_DIR = CMakeFiles\UnigineTest.dir\src
