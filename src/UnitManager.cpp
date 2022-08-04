@@ -62,15 +62,9 @@ void UnitManager::CalculateVisibleUnits() {
 
 void UnitManager::RayTraceNearClusters(Unit &unit, std::vector<Vector2> &ClustersAroundUnit) {
     ClustersAroundUnit.clear();
-    float AngleStep = unit.FOV / 8;
-    Vector2 TraceVector = unit.ViewDirection;
-    TraceVector.rotate(-(AngleStep*4));
     Vector2 TracedCluster;
-    for (int i = 0; i < 8; ++i) {
-        TraceVector*=unit.ViewDistance;
-        TraceVector.rotate(i * AngleStep);
-        TraceVector+=unit.Position;
-        GetClusterForPosition(TracedCluster, TraceVector, unit.ViewDistance);
+    for (auto &Trace : unit.RayTraces) {
+        GetClusterForPosition(TracedCluster, Trace, unit.ViewDistance);
         bool ClusterAlreadyTraced = false;
         for (auto &Cluster : ClustersAroundUnit)
         {

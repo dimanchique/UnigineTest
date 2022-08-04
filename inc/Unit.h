@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Vector2.h"
+#include <iostream>
 
 struct Unit {
 public:
@@ -19,6 +20,7 @@ public:
         ViewDistance = view_distance;
         ID = id;
         ViewDirection.normalize();
+        GetTraces();
     }
 
     bool CanSee(Unit &other)
@@ -32,10 +34,25 @@ public:
         return Angle <= FOV/2;
     }
 
+    void GetTraces(){
+        Vector2 Ray = ViewDirection;
+        Ray.rotate(-FOV/2);
+        for (int i = -4; i < 5; i++){
+            RayTraces.emplace_back(Ray);
+            Ray.rotate(i * 12.5f);
+        }
+        for (auto &Trace : RayTraces){
+            Trace*=ViewDistance;
+            Trace+=Position;
+        }
+        RayTraces.emplace_back(Position);
+    }
+
     Vector2 Position;
     Vector2 ViewDirection;
     float FOV;
     int ViewDistance;
     std::vector<uint32_t> VisibleUnitsIDs;
+    std::vector<Vector2> RayTraces;
     uint32_t ID;
 };
