@@ -24,10 +24,10 @@ public:
 
     bool CanSee(Unit &other)
     {
-        float Distance = Vector2::distance(Position, other.Position);
-        if (Distance > ViewDistance)
+        Vector2 VectorToTarget = other.Position - Position;
+        if (VectorToTarget.absolute() > (float)ViewDistance)
             return false;
-        Vector2 VectorToTarget = (other.Position - Position).normalized();
+        VectorToTarget.normalize();
         float Angle = RadToDeg(std::acos(Vector2::dot(ViewDirection, VectorToTarget)));
         return Angle <= FOV/2;
     }
