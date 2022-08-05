@@ -26,6 +26,7 @@ public:
 
     void rotate(float Degrees);
     void normalize();
+    Vector2 normalized() const;
     float absolute() const;
     static float dot(const Vector2 &left, const Vector2 &right);
     static float distance(const Vector2 &left, const Vector2 &right);

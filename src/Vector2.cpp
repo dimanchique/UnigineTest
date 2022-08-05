@@ -62,6 +62,14 @@ void Vector2::normalize() {
     }
 }
 
+Vector2 Vector2::normalized() const {
+    if(X != 0 || Y != 0){
+        const float length = absolute();
+        return { X / length, Y / length};
+    }
+    return {};
+}
+
 float Vector2::absolute() const {
     auto quad = X*X + Y*Y;
     float x = 1.0f;
@@ -92,7 +100,7 @@ void Vector2::rotate(float Degrees) {
 }
 
 void Vector2::GetRandomRotatedVector(Vector2 &RotatingVector) {
-    RotatingVector = {std::experimental::randint(0, 360)};
+    RotatingVector = Vector2(std::experimental::randint(0, 360)).normalized();
 }
 
 void Vector2::GetRandomVector(int& Band, Vector2& RandomVector){

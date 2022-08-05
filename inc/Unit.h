@@ -19,7 +19,6 @@ public:
         FOV = fov;
         ViewDistance = view_distance;
         ID = id;
-        ViewDirection.normalize();
         GetTraces();
     }
 
@@ -28,18 +27,17 @@ public:
         float Distance = Vector2::distance(Position, other.Position);
         if (Distance > ViewDistance)
             return false;
-        Vector2 VectorToTarget = other.Position - Position;
-        VectorToTarget.normalize();
+        Vector2 VectorToTarget = (other.Position - Position).normalized();
         float Angle = RadToDeg(std::acos(Vector2::dot(ViewDirection, VectorToTarget)));
         return Angle <= FOV/2;
     }
 
     void GetTraces(){
+        float AngleStep = FOV/8;
         Vector2 Ray = ViewDirection;
-        Ray.rotate(-FOV/2);
         for (int i = -4; i < 5; i++){
             RayTraces.emplace_back(Ray);
-            Ray.rotate(i * 12.5f);
+            Ray.rotate(AngleStep);
         }
         for (auto &Trace : RayTraces){
             Trace*=ViewDistance;
