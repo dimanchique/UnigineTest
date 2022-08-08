@@ -2,7 +2,7 @@
 #include "Unit.h"
 #include "Vector2.h"
 #include "vector"
-#include "map"
+#include "unordered_map"
 
 class UnitManager {
     static uint32_t UnitsCount;
@@ -10,11 +10,11 @@ public:
     UnitManager() = default;
     void CreateUnits(int FieldSize, uint32_t NumOfUnits, float FOV, int ViewDistance);
     void CalculateVisibleUnits();
-    std::map<uint32_t, Unit> UnitsByID;
+    std::unordered_map<uint32_t, Unit> UnitsByID;
 
 private:
-    std::map<int, std::map<int, std::vector<uint32_t>>> UnitsIDsByCluster;
-    std::map<int, std::map<int,uint32_t>> UnitsIDsByLocation;
+    std::unordered_map<int, std::unordered_map<int, std::vector<uint32_t>>> UnitsIDsByCluster;
+    std::unordered_map<int, std::unordered_map<int,uint32_t>> UnitsIDsByLocation;
 
     void InitializeUnits(Vector2 &position, Vector2 &rotation, float &fov, int &view_distance);
     void GenerateNotOccupiedLocation(int &Band, Vector2 &Position);
