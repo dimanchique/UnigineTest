@@ -87,7 +87,7 @@
 		<Unit filename="C:/Work/C-Cpp/UnigineTest/main.cpp">
 			<Option target="UnigineTest"/>
 		</Unit>
-		<Unit filename="C:/Work/C-Cpp/UnigineTest/src/EntityManager.cpp">
+		<Unit filename="C:/Work/C-Cpp/UnigineTest/src/UnitManager.cpp">
 			<Option target="UnigineTest"/>
 		</Unit>
 		<Unit filename="C:/Work/C-Cpp/UnigineTest/src/Vector2.cpp">

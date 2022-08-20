@@ -50,7 +50,7 @@ Vector2 &Vector2::operator/=(const Vector2 &right) {
     return *this;
 }
 
-bool Vector2::operator==(const Vector2 &right){
+bool Vector2::operator==(const Vector2 &right) const{
     return (X == right.X && Y == right.Y);
 }
 
@@ -86,12 +86,8 @@ float Vector2::dot(const Vector2 &left, const Vector2 &right) {
     return left.X * right.X + left.Y * right.Y;
 }
 
-float Vector2::distance(const Vector2 &left, const Vector2 &right) {
-    return (left-right).absolute();
-}
-
 void Vector2::rotate(float Degrees) {
-    float Radians = DegToRad(Degrees);
+    float Radians = DegToRad(Degrees)
     float x_1 = X;
     float cos_rad = cos(Radians);
     float sin_rad = sin(Radians);

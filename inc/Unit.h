@@ -22,13 +22,13 @@ public:
         GetTraces();
     }
 
-    bool CanSee(Unit &other)
+    bool CanSee(Unit &other) const
     {
         Vector2 VectorToTarget = other.Position - Position;
         if (VectorToTarget.absolute() > (float)ViewDistance)
             return false;
         VectorToTarget.normalize();
-        float Angle = RadToDeg(std::acos(Vector2::dot(ViewDirection, VectorToTarget)));
+        float Angle = RadToDeg(std::acos(Vector2::dot(ViewDirection, VectorToTarget)))
         return Angle <= FOV/2;
     }
 
