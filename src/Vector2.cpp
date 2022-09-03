@@ -1,5 +1,7 @@
 #include "Vector2.h"
 
+#include <cmath>
+
 Vector2 Vector2::operator+(const Vector2 &right) const {
     Vector2 temp(*this);
     temp += right;
@@ -89,8 +91,8 @@ float Vector2::dot(const Vector2 &left, const Vector2 &right) {
 void Vector2::rotate(float Degrees) {
     float Radians = DegToRad(Degrees)
     float x_1 = X;
-    float cos_rad = cos(Radians);
-    float sin_rad = sin(Radians);
+    auto cos_rad = std::cos(Radians);
+    float sin_rad = std::sin(Radians);
     X = ((X * cos_rad) - (Y * sin_rad));
     Y = (x_1 * sin_rad) + (Y * cos_rad);
 }
@@ -100,8 +102,8 @@ void Vector2::GetRandomRotatedVector(Vector2 &RotatingVector) {
 }
 
 void Vector2::GetRandomVector(int& Band, Vector2& RandomVector){
-    RandomVector = Vector2(std::experimental::randint(-Band, Band - 1),
-                           std::experimental::randint(-Band, Band - 1));
+    RandomVector = Vector2((float)std::experimental::randint(-Band, Band - 1),
+                           (float)std::experimental::randint(-Band, Band - 1));
 }
 
 Vector2 Vector2::operator*(const float Value) {

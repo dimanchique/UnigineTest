@@ -40,7 +40,7 @@ public:
             Ray.rotate(AngleStep);
         }
         for (auto &Trace : RayTraces){
-            Trace*=ViewDistance;
+            Trace*=(float)ViewDistance;
             Trace+=Position;
         }
         RayTraces.emplace_back(Position);

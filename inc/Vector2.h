@@ -7,7 +7,7 @@
 class Vector2 {
 public:
     Vector2(float X, float Y) : X(X), Y(Y) {};
-    explicit Vector2(int Degrees) : X(1), Y(0) { rotate(Degrees); };
+    explicit Vector2(int Degrees) : X(1), Y(0) { rotate((float)Degrees); };
     Vector2() : X(0), Y(0) {};
 
     float X, Y;
@@ -26,8 +26,8 @@ public:
 
     void rotate(float Degrees);
     void normalize();
-    Vector2 normalized() const;
-    float absolute() const;
+    [[nodiscard]] [[nodiscard]] Vector2 normalized() const;
+    [[nodiscard]] float absolute() const;
     static float dot(const Vector2 &left, const Vector2 &right);
 
     static void GetRandomRotatedVector(Vector2 &Vector);

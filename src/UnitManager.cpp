@@ -26,7 +26,7 @@ void UnitManager::GetClusterForPosition(Vector2 &Cluster, Vector2 &Position, int
     int Y_Cluster = Position.Y > 0 ?
                     ClusterSize * ((int) Position.Y / ClusterSize) :
                     ClusterSize * (((int) Position.Y / ClusterSize) - 1);
-    Cluster = Vector2(X_Cluster, Y_Cluster);
+    Cluster = Vector2((float)X_Cluster, (float)Y_Cluster);
 }
 
 void UnitManager::GenerateNotOccupiedLocation(int &Band, Vector2 &Position) {
