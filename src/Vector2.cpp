@@ -1,5 +1,4 @@
 #include "Vector2.h"
-
 #include <cmath>
 
 Vector2 Vector2::operator+(const Vector2 &right) const {

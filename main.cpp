@@ -12,7 +12,7 @@ int main() {
     FieldSize = 400;
     NumOfUnits = 10000;
     FOV = 130;
-    ViewDistance = 5;
+    ViewDistance = 8;
 
     start_time = std::chrono::high_resolution_clock::now();
     Manager.CreateUnits(FieldSize, NumOfUnits, FOV, ViewDistance);

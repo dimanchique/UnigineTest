@@ -1,7 +1,5 @@
 #pragma once
-
 #include "Vector2.h"
-#include <iostream>
 
 struct Unit {
 public:
