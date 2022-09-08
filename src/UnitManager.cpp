@@ -30,7 +30,9 @@ void UnitManager::GetClusterForPosition(Vector2 &Cluster, Vector2 &Position, int
 }
 
 void UnitManager::GenerateNotOccupiedLocation(int &Band, Vector2 &Position) {
-    do { Vector2::GetRandomVector(Band, Position); } while (FieldPointIsOccupied(Position));
+    do {
+        Vector2::GetRandomVector(Band, Position);
+    } while (FieldPointIsOccupied(Position));
 }
 
 void UnitManager::InitializeUnits(Vector2 &position, Vector2 &rotation, float &fov, int &view_distance) {

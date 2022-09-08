@@ -24,7 +24,6 @@ private:
 
     Unit GetUnitByID(uint32_t ID) { return UnitsByID[ID]; }
     void GetUnitsIDsInCluster(std::vector<uint32_t> &IDs, Vector2 &Cluster) {
-        IDs.clear();
         IDs = UnitsIDsByCluster[(int)Cluster.X][(int)Cluster.Y];
     }
     void GetUnitsByIDs(std::vector<Unit> &Units, std::vector<uint32_t> &IDs) {
